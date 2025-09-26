@@ -31,17 +31,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+async function enableMocking() {
+  const { worker } = await import('./services/mocks/browser')
+
+  // `worker.start()` returns a Promise that resolves
+  // once the Service Worker is up and ready to intercept requests.
+  return worker.start()
+}
+
 // Render the app
 const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
-  root.render(
-    <StrictMode>
-      <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
-        <RouterProvider router={router} />
-      </TanStackQueryProvider.Provider>
-    </StrictMode>,
-  )
+  enableMocking().then(() => {
+    root.render(
+      <StrictMode>
+        <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
+          <RouterProvider router={router} />
+        </TanStackQueryProvider.Provider>
+      </StrictMode>,
+    )
+  })
 }
 
 // If you want to start measuring performance in your app, pass a function

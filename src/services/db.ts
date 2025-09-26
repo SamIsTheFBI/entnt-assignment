@@ -7,7 +7,7 @@ class TalentFlowDB extends Dexie {
   constructor() {
     super('TalentFlowDB')
     this.version(1).stores({
-      jobs: 'id, &slug, title, status, *tags, order',
+      jobs: 'id, &slug, title, jobType, description, status, *tags, createdAt, updatedAt',
     })
   }
 }
