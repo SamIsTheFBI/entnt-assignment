@@ -5,6 +5,7 @@ import {
   BookUser,
   BriefcaseBusiness,
   Flower,
+  Home,
   NotebookPen,
 } from "lucide-react"
 
@@ -27,6 +28,11 @@ const data = {
     avatar: "/avatars/shadcn.jpg",
   },
   projects: [
+    {
+      name: "Home",
+      url: "/dashboard",
+      icon: Home,
+    },
     {
       name: "Jobs",
       url: "/dashboard/jobs",
