@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Flower } from "lucide-react"
+import { Link } from "@tanstack/react-router"
 
 export function LoginForm({
   className,
@@ -51,9 +52,11 @@ export function LoginForm({
                 </div>
                 <Input id="password" type="password" required />
               </div>
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
+              <Link to="/dashboard">
+                <Button type="button" className="w-full">
+                  Login
+                </Button>
+              </Link>
             </div>
           </form>
         </CardContent>
