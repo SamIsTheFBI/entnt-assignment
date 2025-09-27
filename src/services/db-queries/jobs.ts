@@ -68,5 +68,4 @@ export const updateJob = async (id: string, updates: Partial<Job>) => {
 
 export const deleteJob = async (id: string) => {
   await db.jobs.delete(id);
-  return true;
 };

@@ -1,9 +1,9 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/_authenticated/dashboard/candidates')({
+export const Route = createFileRoute('/_authenticated/dashboard/')({
   component: RouteComponent,
 })
 
@@ -20,13 +20,9 @@ function RouteComponent() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="/dashboard">
+                <BreadcrumbPage>
                   Dashboard
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Candidates</BreadcrumbPage>
+                </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

@@ -1,4 +1,4 @@
-import { createJob, getAllJobs, updateJob } from '@/services/db-queries/jobs';
+import { createJob, deleteJob, getAllJobs, updateJob } from '@/services/db-queries/jobs';
 import { JobSchema, type Job } from '@/types/jobs';
 import { http, HttpResponse } from 'msw'
 
@@ -32,6 +32,9 @@ export const jobHandlers = [
   http.patch('/api/jobs/:id', async ({ request, params }) => {
     try {
       const { id } = params;
+      if (!id) {
+        throw new Error("ID not passed")
+      }
       const updates = await request.json()
       const validatedUpdates = JobSchema.partial().parse(updates);
 
@@ -39,7 +42,21 @@ export const jobHandlers = [
 
       return HttpResponse.json(updatedJob)
     } catch (error) {
-      return new HttpResponse("Failed to update job.", { status: 500 })
+      return new HttpResponse("Failed to update job. " + String(error), { status: 500 })
     }
   }),
+
+  http.delete('/api/jobs/:id', async ({ params }) => {
+    try {
+      const { id } = params;
+      if (!id) {
+        throw new Error("ID not passed")
+      }
+
+      await deleteJob(String(id))
+      return new HttpResponse("Successfully deleted job.", { status: 204 })
+    } catch (error) {
+      return new HttpResponse("Failed to update job. " + String(error), { status: 500 })
+    }
+  })
 ];
