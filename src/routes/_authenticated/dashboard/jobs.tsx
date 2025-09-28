@@ -22,7 +22,7 @@ import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { JobDialog } from '@/components/job-dialog'
 import { useDebounceValue } from 'usehooks-ts'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/_authenticated/dashboard/jobs')({

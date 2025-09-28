@@ -6,11 +6,6 @@ export default function Header() {
       <div className="px-2 font-bold">
         <Link to="/">TalentFlow</Link>
       </div>
-      <nav className="flex flex-row">
-        <div className="px-2 font-bold">
-          <Link to="/demo/tanstack-query">TanStack Query</Link>
-        </div>
-      </nav>
     </header>
   )
 }
