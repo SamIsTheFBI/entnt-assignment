@@ -1,6 +1,6 @@
 import type React from "react"
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { StickyNote } from "lucide-react"
+import { NotebookPen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
@@ -96,13 +96,13 @@ function StageColumn({
 }) {
   return (
     <section
-      className={cn("rounded-lg border bg-card text-card-foreground", "flex flex-col")}
+      className={cn("rounded-lg border bg-card text-card-foreground flex flex-col")}
       onDragOver={(e) => e.preventDefault()}
       onDrop={onDrop}
       aria-label={`${title} column`}
     >
       <header className="px-4 py-3 border-b">
-        <h2 className="text-sm font-medium text-pretty">{title}</h2>
+        <h2 className="text-sm font-medium text-pretty capitalize">{title}</h2>
       </header>
       <div className="flex flex-col gap-3 p-3">
         {candidates?.length ? (
@@ -169,7 +169,7 @@ function CandidateCard({ candidate, onChanged }: { candidate: Candidate; onChang
               aria-label="Edit special note"
               title="Edit special note"
             >
-              <StickyNote className="h-4 w-4" />
+              <NotebookPen className="h-4 w-4" />
             </Button>
           </DialogTrigger>
           <DialogContent onOpenAutoFocus={(e) => e.preventDefault()}>

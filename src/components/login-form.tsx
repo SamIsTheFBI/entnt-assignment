@@ -52,7 +52,7 @@ export function LoginForm({
                 </div>
                 <Input id="password" type="password" required />
               </div>
-              <Link to="/dashboard">
+              <Link to="/dashboard/jobs">
                 <Button type="button" className="w-full">
                   Login
                 </Button>

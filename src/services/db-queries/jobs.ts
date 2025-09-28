@@ -1,5 +1,6 @@
-import type { Job } from "@/types/jobs";
+import { type Job } from "@/types/jobs";
 import db from "../db";
+import { generateFakeJob } from "../seed";
 
 interface GetAllJobsParams {
   search?: string;
@@ -7,6 +8,16 @@ interface GetAllJobsParams {
   jobType?: string;
   page?: number;
   pageSize?: number;
+}
+
+export const seedJobsIfEmpty = async () => {
+  const count = await db.jobs.count()
+  if (count > 0) return
+  let i = 50
+  while (i -= 1) {
+    const job = generateFakeJob()
+    await db.jobs.add(job)
+  }
 }
 
 export const getAllJobs = async ({ search, status, jobType, page, pageSize }: GetAllJobsParams) => {

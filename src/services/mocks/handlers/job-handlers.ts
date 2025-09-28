@@ -7,11 +7,12 @@ export const jobHandlers = [
     const url = new URL(request.url)
     const search = url.searchParams.get('search') || '';
     const status = url.searchParams.get('status') || '';
+    const jobType = url.searchParams.get('jobType') || '';
     const page = parseInt(url.searchParams.get('page') || '1', 10);
     const pageSize = parseInt(url.searchParams.get('pageSize') || '10', 10);
 
     try {
-      const result = await getAllJobs({ search, status, page, pageSize })
+      const result = await getAllJobs({ search, status, page, pageSize, jobType })
       return HttpResponse.json(result);
     } catch (error) {
       return new HttpResponse('Failed to fetch jobs', { status: 500 })

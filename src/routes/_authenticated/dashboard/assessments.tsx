@@ -14,7 +14,7 @@ export const Route = createFileRoute('/_authenticated/dashboard/assessments')({
   component: RouteComponent,
 })
 
-type ViewMode = 'list' | 'builder' | 'preview' | 'take' | 'results';
+type ViewMode = 'list' | 'preview' | 'results';
 
 function RouteComponent() {
   const [currentView, setCurrentView] = useState<ViewMode>('list');

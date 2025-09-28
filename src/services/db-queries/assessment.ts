@@ -1,5 +1,6 @@
 import type { Assessment } from "@/types/assessment";
 import db from "../db";
+import { generateFakeAssessment } from "../seed";
 
 export interface GetAllAssessmentsParams {
   search?: string;
@@ -17,6 +18,16 @@ export interface GetAllAssessmentsResult {
   total: number;
   page: number;
   pageSize: number;
+}
+
+export const seedAssessmentsIfEmpty = async () => {
+  const count = await db.assessments.count()
+  if (count > 0) return
+  let i = 3
+  while (i -= 1) {
+    const result = generateFakeAssessment()
+    await db.assessments.add(result)
+  }
 }
 
 export const createAssessment = async (assessment: Assessment) => {

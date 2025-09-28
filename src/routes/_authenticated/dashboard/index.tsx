@@ -29,6 +29,10 @@ function RouteComponent() {
         </div>
       </header>
       <div className="px-4">
+        <h1 className="text-4xl font-bold pb-2">
+          Hey there, lets get some work done!
+        </h1>
+        Check the sidebar for different sections.
       </div>
     </>
   )

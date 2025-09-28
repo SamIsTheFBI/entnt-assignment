@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { toast } from 'sonner';
+import { seedAssessmentsIfEmpty } from '@/services/db-queries/assessment';
 
 interface AssessmentListProps {
   onPreview: (assessment: Assessment) => void;
@@ -24,6 +25,7 @@ export const AssessmentList: React.FC<AssessmentListProps> = ({
   onViewResults
 }) => {
   const fetchAssessments = async () => {
+    await seedAssessmentsIfEmpty()
     const res = await axios.get<AssessmentsReceived>("/api/assessment", {
       params: {
       }

@@ -5,7 +5,6 @@ import {
   BookUser,
   BriefcaseBusiness,
   Flower,
-  Home,
   NotebookPen,
 } from "lucide-react"
 
@@ -23,16 +22,11 @@ import {
 
 const data = {
   user: {
-    name: "shadcn",
+    name: "HR",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   projects: [
-    {
-      name: "Home",
-      url: "/dashboard",
-      icon: Home,
-    },
     {
       name: "Jobs",
       url: "/dashboard/jobs",

@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { PlusCircle } from "lucide-react"
+import { Pencil, PlusCircle } from "lucide-react"
 import { z } from "zod/v4"
 import { Button } from "@/components/ui/button"
 import {
@@ -28,9 +28,10 @@ import { toast } from "sonner"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { TagInput } from "./tag-input"
-import { JobStatusSchema, JobTypeSchema } from "@/types/jobs"
+import { JobStatusSchema, JobTypeSchema, type Job } from "@/types/jobs"
 import axios from "axios"
 import { useQueryClient } from "@tanstack/react-query"
+import { useState } from "react"
 
 const JobCreateSchema = z.object({
   title: z.string().min(2).max(50),
@@ -40,15 +41,20 @@ const JobCreateSchema = z.object({
   tags: z.array(z.string())
 })
 
-export function CreateJobDialog() {
+interface JobDialogProps {
+  job?: Job
+}
+
+export function JobDialog({ job }: JobDialogProps) {
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof JobCreateSchema>>({
     resolver: zodResolver(JobCreateSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      jobType: "full-time",
-      status: "active",
-      tags: [],
+      title: job ? job.title : "",
+      description: job ? job.description : "",
+      jobType: job ? job.jobType : "full-time",
+      status: job ? job.status : "active",
+      tags: job ? job.tags : [],
     },
   })
 
@@ -56,27 +62,39 @@ export function CreateJobDialog() {
 
   async function onSubmit(values: z.infer<typeof JobCreateSchema>) {
     try {
-      const res = await axios.post("/api/jobs", values)
-      toast(JSON.stringify(res))
+      if (job) {
+        await axios.patch("/api/jobs/" + job.id, values)
+        toast.success("Job updated successfully.")
+      } else {
+        await axios.post("/api/jobs", values)
+        toast.success("Job created successfully.")
+      }
       queryClient.invalidateQueries({ queryKey: ['list-jobs'] })
+      setOpen(false)
     } catch (e) {
       console.error(e)
-      toast(String(e))
+      toast.error("An unexpected error occurred.")
     }
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
-          <Button className="border-2 hover:cursor-pointer">
-            <PlusCircle />
-            Create Job
-          </Button>
+          {job ?
+            <Button title="Edit this job" size="icon" variant="ghost">
+              <Pencil className="size-4" />
+            </Button>
+            :
+            <Button className="border-2 hover:cursor-pointer">
+              <PlusCircle />
+              Create Job
+            </Button>
+          }
         </DialogTrigger>
         <DialogContent className="min-w-3xl">
           <DialogHeader>
-            <DialogTitle>Create a new job</DialogTitle>
+            <DialogTitle>{job ? 'Edit the job' : 'Create a new job'}</DialogTitle>
             <DialogDescription>
               Provide job details. You can adjust the slug and tags before publishing.
             </DialogDescription>
@@ -180,7 +198,7 @@ export function CreateJobDialog() {
                 <DialogClose asChild>
                   <Button variant="outline">Cancel</Button>
                 </DialogClose>
-                <Button type="submit">Submit</Button>
+                <Button type="submit">{job ? 'Save' : 'Submit'}</Button>
               </DialogFooter>
             </form>
           </Form>
