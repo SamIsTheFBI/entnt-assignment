@@ -1,3 +1,4 @@
+import KanbanBoard from '@/components/kanban/kanban-board'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
@@ -32,7 +33,12 @@ function RouteComponent() {
           </Breadcrumb>
         </div>
       </header>
-      <div className="px-4">
+      <div className="px-4 space-y-4">
+        <div>
+          <p className="text-3xl font-bold text-gray-900">Candidates</p>
+          Manage candidate applications
+        </div>
+        <KanbanBoard />
       </div>
     </>
   )
